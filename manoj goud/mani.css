@@ -1,0 +1,6 @@
+.mani{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(177, 177, 198);
+    color: white;
+}

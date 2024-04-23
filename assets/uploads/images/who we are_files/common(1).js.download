@@ -1,0 +1,141 @@
+/*jQuery(document).ready(function(){
+        var jQuerynav = jQuery('#nav');
+        jQuerynav.responsiveNav({
+            smallWidthMax: 996,
+            generateSubSectionLinks:false,
+            sectionSecondTapGo:true
+        });
+});*/
+		//function callAction(e){
+			//alert("inside fn");			
+					
+		//}
+/*	function onLoad(){			 
+		 // Get current page URL
+ var url = window.location.href;
+
+ // remove # from URL
+ url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+
+ // remove parameters from URL
+ url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+
+ // select file name 
+ url = url.split("/").slice(3);
+ url = "/"+url.join("/");
+
+ // If file name not avilable
+ if(url == '/' || url == '/lt-metro-passenger/'){
+ url = '/lt-metro-passenger/index.html';
+ }
+ 
+ if(url.indexOf("news") !== -1 || url.indexOf("events") !== -1){
+ url = '/lt-metro-passenger/about-news.html';
+ }
+ 
+ if(url.indexOf("gallery") !== -1){
+ url = '/lt-metro-passenger/gallery.html';
+ }
+ // Loop all menu items
+ jQuery('.firstLevel li').each(function(){
+
+  // select href
+  var href = jQuery(this).find('a').attr('href');
+
+  // Check filename
+  if(url == href){
+
+   // Select parent class
+   var parentClass = jQuery(this).parent('ul').attr('class');
+ 
+   if(parentClass == 'secondLevel'){
+ 
+    // Add class
+	jQuery(this).children('a').addClass('current');
+    jQuery(this).addClass('current');
+    jQuery(this).parents('.firstLevel li').addClass('current');
+   }else{
+
+    // Add class
+    jQuery(this).addClass('current');
+   }
+ 
+  }
+ });
+ }*/	
+
+	/*var searchTextbox = document.querySelector('#search-terms');
+	if(searchTextbox){
+	  searchTextbox.addEventListener( 'keypress', checkSearchValue, false );
+	}	
+	function checkSearchValue(evt) {
+	  var charCode = evt.charCode;
+	  if (charCode == 13) {
+		if (document.forms["search"]["search-terms"].value == "") {
+		  evt.preventDefault();
+		  alert("Please Enter Your Search Words");
+		}
+		else{					
+			jQuery("#search").attr('action',"/lt-metro-passenger/search/search.aspx");			
+		}
+	  }
+	}*/
+jQuery(document).ready(function(){jQuery(".search_icon").click(function(){jQuery("#search").show(500);jQuery(".navigation").hide();jQuery(".search_icon").hide();});jQuery(".cross").click(function(){jQuery("#search").hide();jQuery(".navigation").show(500);jQuery(".search_icon").show(500);});});function validateForm(){var x=document.forms["search"]["search-terms"].value;if(x==""){alert("Please Enter Your Search Words");return false;}}
+
+jQuery(document).ready(function(){
+	var offset=220;
+	var duration=500;
+	jQuery(window).scroll(function(){
+		if(jQuery(this).scrollTop()>offset){
+			jQuery('.crunchify-top').fadeIn(duration);
+		}
+		else{
+			jQuery('.crunchify-top').fadeOut(duration);
+		}
+	});
+	jQuery('.crunchify-top').click(function(event){
+		event.preventDefault();
+		jQuery('html, body').animate({scrollTop:0},duration);
+		return false;
+	})
+});
+
+jQuery(document).ready(function(){
+	var toTop=jQuery('.contact_image');
+	jQuery(window).scroll(function(){
+		if(jQuery(this).scrollTop()>400){
+		toTop.fadeIn();
+		}else if(toTop.is(':visible')){
+		toTop.fadeOut();
+		}
+	});
+});
+
+jQuery(document).ready(function(){jQuery("#near").click(function(){jQuery('html,body').animate({scrollTop:jQuery("#nearest_station").offset().top-200},'slow');});jQuery("#reachs").click(function(){jQuery('html,body').animate({scrollTop:jQuery("#reach_station").offset().top-200},'slow');});jQuery("#buy").click(function(){jQuery('html,body').animate({scrollTop:jQuery("#buy_tiket").offset().top-200},'slow');});jQuery("#reach").click(function(){jQuery('html,body').animate({scrollTop:jQuery("#reach_you").offset().top-200},'slow');});jQuery("#board").click(function(){jQuery('html,body').animate({scrollTop:jQuery("#board_train").offset().top-200},'slow');});jQuery("#exit").click(function(){jQuery('html,body').animate({scrollTop:jQuery("#exit_station").offset().top-200},'slow');});});
+
+jQuery(document).ready(function(){
+var myHeader=jQuery('.header_menu_container');
+myHeader.data('position',myHeader.position());
+jQuery(window).scroll(function(){
+	var hPos=myHeader.data('position'),
+	scroll=getScroll();
+	if(hPos.top<scroll.top){
+		myHeader.addClass('fixed');
+		}
+		else{
+			myHeader.removeClass('fixed');
+		}
+});
+function getScroll(){
+	var b=document.body;
+	var e=document.documentElement;
+	return{
+		left:parseFloat(window.pageXOffset||b.scrollLeft||e.scrollLeft),
+		top:parseFloat(window.pageYOffset||b.scrollTop||e.scrollTop)
+		};
+}
+});
+
+
+//onLoad();
+	

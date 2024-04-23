@@ -1,0 +1,144 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+.backgroundimage{
+    background-image: url(/assets/uploads/images/Hyderabad-Metro-600.jpg_cf-webp_w-1400_h-500);
+    width: 100%;
+    height: auto;
+}
+.metro-who{
+    /* position: absolute; */
+    /* top: 155px; */
+    /* left: 90px; */
+    font-size: 50px;
+    color: white;
+    margin-top:120px ;  
+    
+}
+.metro-homewho{
+
+/* position:absolute; */
+/* top: 220px; */
+/* left: 80px; */
+font-size: 20px;
+color:white;
+
+
+}
+.dull{
+    opacity:1;
+}
+
+
+.side{
+    float:left;
+}
+
+a button{
+    background-color:white;
+    /* color:blue; */
+    padding: 9px 19px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-weight: bold;
+}
+a button{
+    text-decoration: none;
+    font: 18px;
+   
+}
+
+a button:hover{
+    background-color: #004b88;
+    color: white;
+}
+body{
+    line-height: 2;
+    
+    }
+
+.margin-left{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>tablet view */
+@media screen and   (min-width:427px) and (max-width:768px) {
+    .img{
+        width: 100%;
+           height:auto;
+       }
+       .backgroundimage{
+        background-image: url(/assets/uploads/images/Hyderabad-Metro-600.jpg_cf-webp_w-1400_h-500);
+        width: 100%;
+        background-size: cover;
+        height: auto;
+    }
+    .metro-who {
+        font-size: 30px;
+    color: white;
+    margin-top:80px ;padding-top: 0px; 
+    padding-left: 30px;
+    
+        /* position: absolute; */
+        /* margin-top: 20px; */
+        .metro-homewho{
+
+            /* position:absolute; */
+            /* top: 220px; */
+            /* left: 80px; */
+            font-size: 20px;
+            color:white;
+            padding-left: 30px;
+        }
+
+    }
+    
+}
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>mobile view */
+@media screen and (max-width:426px) {
+    .img{
+        width: 200px;
+           height:auto;
+       }
+       .metro-who{
+        font-size: 20px;
+        position: absolute;
+        margin-top: 20px;
+
+       }
+       .backgroundimage{
+        background-image: url(/assets/uploads/images/Hyderabad-Metro-600.jpg_cf-webp_w-1400_h-500);
+        width: auto;
+        height: 150px;
+        background-size: cover;
+        
+    }
+    .metro-homewho{
+
+        /* position:absolute; */
+        /* top: 220px; */
+        /* left: 80px; */
+        /* font-size: 20px;
+        color:white;
+        padding-bottom: 10px; */
+        line-height: 140px;
+        margin-left: 30px;
+    }
+    .metro-who{
+        margin-left: 30px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+}

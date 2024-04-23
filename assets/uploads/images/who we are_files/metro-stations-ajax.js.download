@@ -1,0 +1,487 @@
+jQuery(document).ready(function($) {
+    
+    if ( jQuery( "#station_info_data" ).length )
+    {
+        var stid = jQuery('#station-list').val();
+
+        var data = '';
+        var nodata = "<ul><li>No Landmarks</li></ul>";
+//console.log("URL",ajax_var.ajaxurl2);
+        $.ajax({
+            url: ajax_var.ajaxurl2, 
+            data: {
+                'action': 'metro_station_info',
+                'stid'  : stid
+            },
+            success:function(data) {
+                if(data)
+                 {
+                    jQuery('#station_info_data').html(data);
+                 }
+                else
+                {
+                    jQuery('#station_info_data').html(nodata);    
+                }
+            },
+            error: function(errorThrown){
+                //console.log(errorThrown);
+            }
+        });
+    }
+    
+    jQuery('#station-sub').click(function(){
+        var stid = jQuery('#station-list').val();
+        var data = '';
+        var nodata = "<ul><li>No Landmarks</li></ul>";
+        jQuery('#station_info_data').html(data);
+        $.ajax({
+            url: ajax_var.ajaxurl2, 
+            data: {
+                'action': 'metro_station_info',
+                'stid'  : stid
+            },
+            success:function(data) {
+                if(data)
+                 {
+                    jQuery('#station_info_data').html(data);
+                 }
+                else
+                {
+                    jQuery('#station_info_data').html(nodata);    
+                }
+            },
+            error: function(errorThrown){
+                //console.log(errorThrown);
+            }
+        
+                                 });
+           
+        });
+   
+     $.get_metro_timings = function()
+        {
+        //var optionSelected = jQuery("#station_name").find('option:selected').attr('mstid');
+        var optionSelected = jQuery("#station_name").val();
+        $.ajax({
+             url: ajax_var.ajaxurl2, 
+             data: {
+                 'action': 'metro_time_info',
+                 'mtsid'  : optionSelected,
+             },
+             success:function(data) {
+                 if(data)
+                  {
+                    // console.log('test2',data);
+                     $('.times_info').html(data);
+                     $("#train_timings_but").removeClass("disabled");
+                  }
+                 else
+                 {
+                     //jQuery('#station_info_data').html(nodata);    
+                 }
+             },
+             error: function(errorThrown){
+                 console.log(errorThrown);
+             }
+         });    
+
+        }
+  
+    jQuery('#get_fare_data').click(function(){
+        
+        var from_sta_name = jQuery('#fromStation option:selected').text();
+        var to_sta_name = jQuery('#toStation option:selected').text();
+        
+        if(from_sta_name=='--Please Select--')
+        {
+           alert("Please Select From Station");
+           return false;
+        }
+        
+        if(to_sta_name=='--Please Select--')
+        {
+           alert("Please Select To Station");
+           return false;
+        }
+        
+        if(from_sta_name==to_sta_name)
+        {
+           alert("Please select different stations. From and To stations are same");
+           return false;
+        }
+        
+        //from_sta_name = from_sta_name.replace(' ', '%20');
+        //to_sta_name = to_sta_name.replace(' ', '%20');
+        
+        jQuery.ajax({
+             url: ajax_var.ajaxurl2, 
+             data: {
+                 'action': 'get_time_fare',
+                 'fromStation'  : from_sta_name,
+                 'toStation' : to_sta_name
+             },
+             success:function(data) {
+                 if(data)
+                  {
+                      if(data != 'No Data')
+                      {
+                       var faredata = jQuery.parseJSON( data );
+			
+                       jQuery('#fromStation_data').html(faredata.fromStationName);
+                       jQuery('#toStation_data').html(faredata.toStationName);
+                       jQuery('#duration').html(faredata.time);
+                       jQuery('#fare').html(faredata.fare);
+                       jQuery('#distance').html(faredata.distance.toFixed(2));
+                      }
+                       console.log(data);
+                     //$('.modal-body').html(data);
+                     //$("#train_timings_but").removeClass("disabled");
+                  }
+                 else
+                 {
+                     //jQuery('#station_info_data').html(nodata);    
+                 }
+             },
+             error: function(errorThrown){
+                 console.log(errorThrown);
+             }
+         });        
+
+        });
+     
+    jQuery('.get_details').click(function(){
+        //jQuery('#fareTimeModalbox').modal('toggle');
+        var from_sta_name2 = jQuery('#from-st-name option:selected').text();
+        var to_sta_name2 = jQuery('#to-st-name option:selected').text();
+        
+        var from_sta_id2 = jQuery('#from-st-name').val();
+        var to_sta_id2 = jQuery('#to-st-name').val();
+        
+        if(from_sta_name2 == '--Please Select--')
+        {
+           alert("Please Select From Station");
+           return false;
+        }
+        
+        if(to_sta_name2 == '--Please Select--')
+        {
+           alert("Please Select To Station");
+           return false;
+        }
+        
+        if(from_sta_name2 == to_sta_name2)
+        {
+           alert("Please select different stations. From and To stations are same");
+           return false;
+        }
+       
+        const metroStation1 = ["JNTU", "KPHB","S R Nagar","ESI","Dr.B.R. Ambedkar Balanagar","Bharath Nagar","Irrumanzil","Lakdikapul", "Mussarambagh","Chikkadapally","Sultan Bazar","Dilshuknagar","HiTech City","JBS Parade Ground","Secunderabad (W)","Secunderabad ( E )","Parade Grounds","Pedamma Temple"];
+        const metroStation2 = ["JNTU College","KPHB Colony","S.R. Nagar","ESI Hospital","Dr.B.R. Ambedkar Balanagar","Bharath Nagar","Irrum Manzil","Lakdi-Ka-Pul","Musarambagh","Chikkadpally","Sultan Bazaar","Dilsukhnagar","HITEC City","Parade Ground","Secunderabad West","Secunderabad East","Parade Ground","Peddamma Gudi"];
+        if(from_sta_name2==metroStation2[metroStation2.indexOf(from_sta_name2)]){
+            from_sta_name2=metroStation1[metroStation2.indexOf(from_sta_name2)];
+        }
+
+        //console.log("FROM",from_sta_name2);
+        
+        if(to_sta_name2==metroStation2[metroStation2.indexOf(to_sta_name2)]){ 
+            to_sta_name2=metroStation1[metroStation2.indexOf(to_sta_name2)];
+        }
+
+        //console.log("TO",to_sta_name2);
+
+	 // Parade Grounds FROM & TO
+        if(from_sta_name2 == "JBS Parade Ground"){
+            from_sta_id2=52;
+            from_sta_name2 = "Parade Grounds";
+        }
+
+	if(to_sta_name2 == "JBS Parade Ground"){
+            to_sta_id2=52;
+            to_sta_name2 = "Parade Grounds";
+        }
+
+	// Dr. B. R. Ambedhkar
+	
+	if(from_sta_name2 == "Dr.B.R. Ambedkar Balanagar"){
+		from_sta_id2=5;
+            	from_sta_name2 = "Balanagar";
+	}
+        
+	if(to_sta_name2 == "Dr.B.R. Ambedkar Balanagar"){
+            to_sta_id2=5;
+            to_sta_name2 = "Balanagar";
+        }
+
+        // Bharat Nagar 
+	if(from_sta_name2 == "Bharatnagar"){
+		from_sta_id2=7;
+            	from_sta_name2 = "Bharath Nagar";
+	}
+        
+	if(to_sta_name2 == "Bharatnagar"){
+            to_sta_id2=7;
+            to_sta_name2 = "Bharath Nagar";
+        }
+
+	// Panjguttta 
+	/*if(from_sta_name2 == "Punjagutta"){
+		from_sta_id2=12;
+            	from_sta_name2 = "Panjagutta";
+	}
+        
+	if(to_sta_name2 == "Punjagutta"){
+            to_sta_id2=12;
+            to_sta_name2 = "Panjagutta";
+        }*/
+	
+	// MG Bus Station 
+	/*if(from_sta_name2 == "MG Bus station"){
+	     from_sta_id2=20;
+             from_sta_name2 = "M G Bus station";
+	}
+        
+	if(to_sta_name2 == "MG Bus station"){
+            to_sta_id2=20;
+            to_sta_name2 = "M G Bus station";
+        }*/
+
+	// Narayanaguda
+	/*if(from_sta_name2 == "Narayanaguda"){
+		from_sta_id2=35;
+            	from_sta_name2 = "Narayanguda";
+	}
+        
+	if(to_sta_name2 == "Narayanaguda"){
+            to_sta_id2=35;
+            to_sta_name2 = "Narayanguda";
+        }*/
+
+	// Road No. 5 Jubilee Hills
+	/*if(from_sta_name2 == "Road No. 5 Jubilee Hills"){
+		from_sta_id2=60;
+            	from_sta_name2 = "Road No 5 Jubilee Hills";
+	}
+        
+	if(to_sta_name2 == "Road No. 5 Jubilee Hills"){
+            to_sta_id2=60;
+            to_sta_name2 = "Road No 5 Jubilee Hills";
+        }
+*/
+
+        //from_sta_name2 = from_sta_name2.replace(' ', '%20');
+        //to_sta_name2 = to_sta_name2.replace(' ', '%20');
+
+        jQuery.ajax({
+             url: ajax_var.ajaxurl2, 
+
+             data: {
+                 'action': 'get_time_fare',
+                 'fromStation'  : from_sta_name2,
+                 'toStation' : to_sta_name2,
+                 'fromStationid'  : from_sta_id2,
+                 'toStationid' : to_sta_id2
+             },
+             
+             success:function(data) {
+               
+                 if(data)
+                 
+                  {
+                      if(data != 'No Data')
+                      {
+                       var faredata = jQuery.parseJSON( data );
+                       //jQuery('#fromStation_data2').html(faredata.fromStationName);
+                       jQuery('#fromStation_data2').html(from_sta_name2);
+                       //jQuery('#toStation_data2').html(faredata.toStationName);
+                       jQuery('#toStation_data2').html(to_sta_name2);
+                       jQuery('#duration2').html(faredata.time);
+                       jQuery('#fare2').html(faredata.fare);
+                       jQuery('#distance2').html(faredata.distance);
+                       //jQuery('#distance2').html(faredata.distance.toFixed(2));
+                      }
+                       //console.log("test222",data);
+                     //$('.modal-body').html(data);
+                     //$("#train_timings_but").removeClass("disabled");
+                  }
+                 else
+                 {
+                     //jQuery('#station_info_data').html(nodata);    
+                 }
+             },
+             error: function(errorThrown){
+                 console.log(errorThrown);
+             }
+         });
+        jQuery('#fareTimeModalbox').modal('show');
+    });
+    
+    jQuery('#fareTimeModalbox').on('hidden.bs.modal', function (e) {
+        
+        jQuery('#fromStation_data2').html('');
+        jQuery('#toStation_data2').html('');
+        jQuery('#duration2').html('');
+        jQuery('#fare2').html('');
+        jQuery('#distance2').html('');
+        
+    });
+    
+       // For Feed back from 
+        jQuery("#fb-submit").click(function(){
+               
+          var ftype = encodeURI(jQuery('#feedback_type').val());
+          var fname = encodeURI(jQuery('#fb-name').val());
+          var femail = encodeURI(jQuery('#fb-email').val());
+          var fmobile = encodeURI(jQuery('#fb-mobile').val());
+          var fcomments = encodeURI(jQuery('#fb-comments').val());
+          
+        if(fname == '')
+          {
+            alert("Please enter Name");
+            jQuery('#fb-name').focus();
+            return false;
+          }
+         
+        if(femail == '')
+          {
+            alert("Please enter Email");
+            jQuery('#fb-email').focus();
+            return false;
+          }
+        if(IsEmail(femail)==false){
+          alert("Please enter valied Email");
+          jQuery('#fb-email').focus();
+          return false;
+        }          
+          
+        if(fmobile == '')
+          {
+            alert("Please enter Mobile");
+            jQuery('#fb-mobile').focus();
+            return false;
+          }          
+          
+        if(fcomments == '')
+          {
+            alert("Please enter Comments");
+            jQuery('#fb-comments').focus();
+            return false;
+          }
+          
+          jQuery('.feed_back_form').hide();
+          jQuery('.loading-img').show();
+          
+          jQuery.ajax({
+                 url: ajax_var.ajaxurl2, 
+                 data: {
+                     'action': 'send_feadback_data',
+                     'ftype'  : ftype,
+                     'fname'  : fname,
+                     'femail' : femail,
+                     'fmobile': fmobile,
+                     'fcomments' : fcomments
+                 },
+                 success:function(data) {
+                     //alert(data);
+                     if(data)
+                      {
+                          //jQuery('#fb-key').val(data);
+                          console.log(data);
+                          window.location.href = 'https://www.ltmetro.com/thank-you/?fbkey='+data;
+                      }
+                     else
+                     {
+                         //jQuery('#station_info_data').html(nodata);    
+                     }
+                 },
+                 error: function(errorThrown){
+                     console.log(errorThrown);
+                 }
+             }); 
+          
+        });
+        
+	// For Feed back from 
+        /*jQuery("#hp-submit").click(function(){
+               console.log("TEST Help form");
+          var hname = encodeURI(jQuery('#hp-name').val());
+          var hemail = encodeURI(jQuery('#hp-email').val());
+          var hmobile = encodeURI(jQuery('#hp-mobile').val());
+          var hcomments = encodeURI(jQuery('#hp-comments').val());
+          
+        if(hname == '')
+          {
+            alert("Please enter Name");
+            jQuery('#hb-name').focus();
+            return false;
+          }
+         
+        if(hemail == '')
+          {
+            alert("Please enter Email");
+            jQuery('#hb-email').focus();
+            return false;
+          }
+        if(IsEmail(hemail)==false){
+          alert("Please enter valied Email");
+          jQuery('#hb-email').focus();
+          return false;
+        }          
+          
+        if(hmobile == '')
+          {
+            alert("Please enter Mobile");
+            jQuery('#hb-mobile').focus();
+            return false;
+          }          
+          
+        if(hcomments == '')
+          {
+            alert("Please enter Comments");
+            jQuery('#hb-comments').focus();
+            return false;
+          }
+          
+          //jQuery('.feed_back_form').hide();
+          //jQuery('.loading-img').show();
+          
+          jQuery.ajax({
+                 url: ajax_var.ajaxurl2, 
+                 data: {
+                     'action': 'send_help_data',
+                     'hname'  : hname,
+                     'hemail' : hemail,
+                     'hmobile': hmobile,
+                     'hcomments' : hcomments
+                 },
+                 success:function(data) {
+                     //alert(data);
+                     if(data)
+                      {
+                          //jQuery('#fb-key').val(data);
+                          console.log(data);
+                          window.location.href = 'https://www.ltmetro.com/thank-you/?hkey='+data;
+                      }
+                     else
+                     {
+                         //jQuery('#station_info_data').html(nodata);    
+                     }
+                 },
+                 error: function(errorThrown){
+                     console.log(errorThrown);
+                 }
+             }); 
+          
+        });*/
+
+
+        function IsEmail(email) {
+         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+         if(!regex.test(email)) {
+           return false;
+         }else{
+           return true;
+         }
+        }  
+        
+    });
+

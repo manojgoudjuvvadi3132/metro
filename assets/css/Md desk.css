@@ -1,0 +1,154 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    
+    
+}
+
+
+.dell{
+    background-image: url("/assets/uploads/images/metro\ tg.jpg");
+    height: 60vh;
+    background-position: center;
+    /* text-align:center; */
+}
+
+.mdDesk{
+    /* text-align: start; */
+    margin-left: 100px;
+    padding-top: 200px;
+    color: white;
+}
+
+.Home{
+    /* text-align: start; */
+    padding-top: 10px;
+    margin-left:100px ;
+    color: white;
+}
+
+
+.image-flex{
+    display: flex;
+    
+    
+}
+.marginleft{
+    margin-left: 100px;
+}
+.margin1{
+    margin-left: 80px;
+    margin-top: 20px;
+    width: 770px;
+    font-family: sans-serif;
+    text-align: justify;
+    font-size: 13px;
+    line-height: 20PX;
+
+}
+
+.margin2{
+    margin-left: 80px;
+    margin-top: 20px;
+    width: 770px;
+    font-family: sans-serif;
+    text-align: justify;
+    font-size: 13px;
+    line-height: 20PX;
+}
+
+.margin3{
+    margin-left: 80px;
+    margin-top: 20px;
+    width: 770px;
+    font-family: sans-serif;
+    text-align: justify;
+    font-size: 13px;
+    line-height: 20PX;}
+
+    .boximage>img{
+        
+        margin-left: 400px;
+        margin-top: 10px;
+        /* padding-top: -1000px; */
+    }
+    .rowarrange{
+        display: flex;
+    }
+    .sai>p{
+        width:700px;
+    }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.boximage{.margin{
+    width: 600px;
+}
+    width: 280px;
+    height: 250px;
+    /* padding-right: 50px; */
+    margin-left: 30px;
+}
+.img2{
+margin-left: 80px;
+margin-top: 10px;
+
+}
+
+@media screen and (min-width:769px) and (max-width:1025) {
+    
+}
+.dell{
+    background-image: url("/assets/uploads/images/metro\ tg.jpg");
+    height: 60vh;
+    background-position: center;
+    /* text-align:center; */
+}
+.boximage{
+    /* margin-left: -10px; */
+}
+.margin{
+    width: 600px;
+}
+
+
+    @media screen and (min-width:426px) and (max-width:769px) {
+    
+    }
+
+    .boximage{
+        /* margin-left: -10px; */
+        padding-top: 430px;
+        position: absolute;
+        right: 405px;
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+

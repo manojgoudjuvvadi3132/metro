@@ -1,0 +1,44 @@
+*{
+margin: 0px;
+padding: 0px;
+box-sizing: border-box;
+}
+
+.commintmentimages{
+ background-image: url(/assets/uploads/images/hands-on-keyboard-blue.png);
+ height: 450px;
+   display: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width:100%;
+
+} 
+
+.oc1{
+ top: 300px;
+
+padding-left: 100px;
+color: blue;
+position: absolute;
+}
+.oc2{
+    top: 400px;
+    padding-left: 100px;
+    color: blue;
+    position: absolute;
+    
+    }
+.commitment2{
+ margin-left: 100px;
+ margin-right: 100px;
+ margin-top: 30px;
+}
+.Commitment3{
+ /* width: 150px; */
+ /* border-bottom: 5px solid rgb(47, 9, 185);
+ width: 140px; */
+
+
+
+     
+}

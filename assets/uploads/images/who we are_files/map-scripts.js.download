@@ -1,0 +1,226 @@
+jQuery(document).ready(function(){
+jQuery('.locate_icon').click(function(){
+  getLocation();
+  });
+jQuery('.station_name').on('change', function() {
+  var from_city_name = jQuery('#autocomplete').val();
+  var near_station_name =  jQuery('.station_name').val();
+   if(from_city_name=='')
+      {
+        //alert( 'Please enter Address' );
+      }
+
+  var dir_url = 'https://www.google.com/maps/dir/'+from_city_name.replace(' ', '+')+'/'+near_station_name.replace(' ', '+')+'+Metro+station';
+  
+  var get_dire_text = '&nbsp;&nbsp;<a href="'+dir_url+'" target="_blank" class="btn btn-info btn-lg" >Get Directions</a>';
+  jQuery('#get_directions').html(get_dire_text);
+  
+  //var optionSelected = jQuery(this).find('option:selected').attr('mstid');
+ 
+  jQuery.get_metro_timings();
+
+      
+  });
+     
+});
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+       // x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+	  var lati  = position.coords.latitude;
+		var longi = position.coords.longitude;
+		var addurl='https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDtruOSDF2tuqEUP4tE0K7GE_ewZHXCXeU&latlng='+lati+','+longi+'&sensor=true/false';
+		jQuery.ajax({ 
+		type: 'GET', 
+		url:  addurl, 
+		data: '', 
+		success: function (data) { 
+		    //var names = data
+			var staData =  data ;
+			var curadd = '';
+			for(var i=0;i<=4;i++)
+			{
+        if(staData.results[0].address_components[i].short_name)
+				 {
+          curadd = curadd + staData.results[0].address_components[i].short_name + ', ';
+         }
+         else
+         {
+          curadd = curadd + staData.results[0].address_components[i].long_name + ', ';
+         }
+			}
+			str = curadd.split(''); 
+			str.splice(str.lastIndexOf(','),1,'.'); 
+			str = str.join(''); //'a_b-c'
+			
+			jQuery("#autocomplete").val(str);
+			initialize(lati, longi);
+			//console.log(curadd);
+		}
+		});
+}
+
+function getTimings()
+{
+    jQuery.ajax({
+       url: ajax_var.ajaxurl2, 
+       data: {
+           'action': 'metro_time_info'
+           //'$mtsid'  : mtsid
+       },
+       success:function(data) {
+           if(data)
+            {
+               //console.log(data);
+            }
+           else
+           {
+               //jQuery('#station_info_data').html(nodata);    
+           }
+       },
+       error: function(errorThrown){
+           //console.log(errorThrown);
+       }
+   }); 
+}
+
+
+var map;
+var infowindow;
+
+function initialize(lati, longi) {
+  var pyrmont = new google.maps.LatLng(lati, longi);
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    center: pyrmont,
+    zoom: 15
+  });
+
+var request = {
+	location: map.center,
+	radius: '15000',
+	keyword: 'metro stations',
+  };
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, function(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+	var near_station_name = results[0].name;
+  var near_metro_sta_names = "Near Metro Stations: "+results[0].name+", "+results[1].name;
+  var from_city_name = jQuery('#autocomplete').val();
+  var dir_url = 'https://www.google.com/maps/dir/'+from_city_name.replace(' ', '+')+'/'+near_station_name.replace(' ', '+')+'+Metro+station';
+  var get_dire_text = '&nbsp;&nbsp;<a href="'+dir_url+'" target="_blank" class="btn btn-info btn-lg" >Get Directions</a>';
+  jQuery('#get_directions').html(get_dire_text);
+  jQuery('.near_stations').html(near_metro_sta_names);
+  
+  for (var ni in results) {
+    //console.log(results[ni].name);
+  }
+  
+  if(near_station_name == 'Miyapur Metro Railway Station(NRS)')
+  {
+    near_station_name = 'Miyapur';
+  }
+  
+  if(near_station_name == 'S.R. Nagar')
+  {
+    near_station_name = 'S R Nagar';
+  }
+  if(near_station_name == 'KPHB Colony')
+  {
+    near_station_name = 'KPHB';
+  }
+  
+  
+  
+  
+  jQuery("#station_name option:contains(" + near_station_name + ")").prop("selected", true);
+  //getTimings();
+	//console.log(near_station_name);
+  jQuery.get_metro_timings(); 
+  
+    //for (var i = 0; i < results.length; i++) {
+     //console.log(results[i])
+      //createMarker(results[i]);
+      
+    //}
+  }
+});
+}
+
+
+//google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addDomListener(window, 'load', initAutocomplete);
+
+var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        if ( jQuery( "#autocomplete" ).length ) {
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+        autocomplete.setComponentRestrictions(
+            {'country': ['in']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+        }
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+               /*
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }  
+          debugger;
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          } */
+        }
+		var lati  = place.geometry.location.lat();
+		var longi = place.geometry.location.lng();
+		initialize(lati, longi);
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) { 
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }  
+        
+      }

@@ -1,0 +1,146 @@
+*{
+margin: 0px;
+padding: 0px;
+text-decoration: none;
+box-sizing: border-box;
+font-family: sans-serif;
+}
+.crs{
+background-image: url(/assets/uploads/images/web\ development\ metro.jpg);
+height: 350px;
+background-position: center;
+text-align: center;
+}
+
+.hello{
+text-align:start;
+padding: 200px;
+color: white;
+}
+.hello2{
+text-align: start;
+padding: 210px;
+color: white
+}
+.reddykvb{
+    display: flex;
+    margin-left: 40px;
+    margin-top: 15px;
+}
+
+.imagepadding{
+    height: 300px;
+    width: 300px;
+}
+
+@media screen and (min-width:426px) and (max-width:769px){
+
+
+.crs{
+    display: block;
+}
+
+.reddykvb{
+display: block;
+
+
+}
+
+.reddykvb{
+margin-top: 40px;
+
+}
+.imagepadding{
+    height: 300px;
+    width: 300px;
+    margin-top: 40px;
+    margin-left: 150px;
+}
+
+.hello{
+    text-align:start;
+    padding: 10px;
+    margin-top: opx;
+    padding-top: 150px;
+    padding-left: 150px;
+    color: white;
+
+}
+
+.hello2{
+    text-align: start;
+    padding: 10px;
+    padding-left: 146px;
+}
+    
+
+}
+
+
+
+@media screen and (max-width:426px) {
+    .crs{
+        width: 100%;
+        /* background-image: url(/assets/uploads/images/web\ development\ metro.jpg);
+        height: 80vh;
+        background-position: center;
+        text-align: center;
+         background-size: cover;  */
+        }
+        #breakside{
+            display: block;
+            
+            
+        }
+
+        /* .imagepadding{
+            height: 300px;
+            width: 300px;
+            margin-top: 40px;
+        }   */
+
+        .hello{
+            text-align:start;
+            padding: 10px;
+            margin-top: opx;
+            padding-top: 150px;
+            padding-left: 20px;
+            color: white;
+        }
+
+        .hello2{
+            text-align: start;
+            padding: 10px;
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+        
+        /* .reddykvb{
+            margin-top: 40px;
+            padding-top: 20px; */
+
+.imagepadding{
+    height: 250px;
+    width: 250px;
+    margin-top: 40px;
+    margin-left: 50px;
+    line-height: normal;
+}
+.reddykvb{
+    display: block;
+}
+}
+
+   
+
+        
+
+
+
+
+
+
+
+
+
+
